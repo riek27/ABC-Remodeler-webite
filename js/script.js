@@ -360,3 +360,138 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Contact Form Validation and Submission
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if (!contactForm) return;
+    
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateContactForm()) {
+            // In a real application, you would send the form data to a server here
+            // For demonstration, we'll show a success message
+            showSuccessModal();
+            contactForm.reset();
+        }
+    });
+    
+    // Real-time validation
+    const formInputs = contactForm.querySelectorAll('input, select, textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+            clearError(this);
+        });
+    });
+}
+
+function validateContactForm() {
+    const form = document.getElementById('contactForm');
+    const requiredFields = form.querySelectorAll('[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!validateField(field)) {
+            isValid = false;
+        }
+    });
+    
+    return isValid;
+}
+
+function validateField(field) {
+    const value = field.value.trim();
+    const errorElement = document.getElementById(field.id + 'Error');
+    
+    // Clear previous error
+    clearError(field);
+    
+    // Check if field is required and empty
+    if (field.hasAttribute('required') && value === '') {
+        showError(field, errorElement, 'This field is required');
+        return false;
+    }
+    
+    // Email validation
+    if (field.type === 'email' && value !== '') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            showError(field, errorElement, 'Please enter a valid email address');
+            return false;
+        }
+    }
+    
+    // Phone validation (basic)
+    if (field.type === 'tel' && value !== '' && !/^[\d\s\-\+\(\)]+$/.test(value)) {
+        showError(field, errorElement, 'Please enter a valid phone number');
+        return false;
+    }
+    
+    return true;
+}
+
+function showError(field, errorElement, message) {
+    field.classList.add('error');
+    if (errorElement) {
+        errorElement.textContent = message;
+    }
+}
+
+function clearError(field) {
+    field.classList.remove('error');
+    const errorElement = document.getElementById(field.id + 'Error');
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
+}
+
+function showSuccessModal() {
+    const modal = document.getElementById('successModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Close modal when X is clicked
+        const closeBtn = modal.querySelector('.close-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // Close modal when OK button is clicked
+        const okBtn = document.getElementById('closeSuccessModal');
+        if (okBtn) {
+            okBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+}
+
+// Update the DOMContentLoaded event to include contact form initialization
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all functionality
+    initMobileMenu();
+    initSliders();
+    initPortfolioFilter();
+    initProjectModal();
+    initStatsCounter();
+    initContactForm(); // Add this line
+});
