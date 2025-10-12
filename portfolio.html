@@ -3,12 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Portfolio - ABC Company</title>
+    <title>Our Portfolio - ABC Company </title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Dropdown Menu Styles */
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li:hover > a {
+            color: #007bff;
+        }
+        
+        /* Dropdown Styles */
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            flex-direction: column;
+        }
+        
+        nav ul li:hover ul {
+            display: flex;
+        }
+        
+        nav ul li ul li {
+            width: 100%;
+        }
+        
+        nav ul li ul li a {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        nav ul li ul li:last-child a {
+            border-bottom: none;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li ul {
+                position: static;
+                box-shadow: none;
+                padding-left: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
@@ -16,12 +86,27 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html">Services</a></li>
-                    <li><a href="why-choose-us.html">Why Choose Us</a></li>
-                    <li><a href="portfolio.html" class="active">Portfolio</a></li>
-                    <li><a href="our-process.html">Our Process</a></li>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li>
+                        <a href="about.html">About <i class="fas fa-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="why-choose-us.html">Why Choose Us</a></li>
+                            <li><a href="our-process.html">Our Process</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="service.html">Services <i class="fas fa-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="service.html#kitchen">Kitchen Remodeling</a></li>
+                            <li><a href="service.html#bathroom">Bathroom Renovation</a></li>
+                            <li><a href="service.html#living">Living Spaces</a></li>
+                            <li><a href="service.html#whole-house">Whole House Remodels</a></li>
+                            <li><a href="service.html#additions">Room Additions</a></li>
+                            <li><a href="service.html#carpentry">Custom Carpentry</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
                     <li><a href="testimonial.html">Testimonials</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -31,7 +116,7 @@
             </div>
         </div>
     </header>
-
+    
     <main>
         <section class="page-hero">
             <div class="container">
